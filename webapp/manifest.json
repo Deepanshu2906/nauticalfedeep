@@ -1,0 +1,282 @@
+{
+    "_version": "1.59.0",
+    "sap.app": {
+        "id": "nauticalfe",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.11.5",
+            "toolsId": "59f64954-7255-4135-9d0f-96f1206f98ef"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/nauti/NAUTICALCV_SRV/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/mainService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "MARINE_TRAFFIC_API_SRV": {
+                "uri": "/sap/opu/odata/nauti/MARINE_TRAFFIC_API_SRV",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/MARINE_TRAFFIC_API_SRV/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "VENDOR_SRV": {
+                "uri": "/sap/opu/odata/nauti/VENDOR_SRV",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/VENDOR_SRV/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "CONTROLLER_SRV": {
+                "uri": "/sap/opu/odata/nauti/CONTROLLER_SRV",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/CONTROLLER_SRV/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.120.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "nauticalfe.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {}
+            },
+            "MARINE_TRAFFIC_API_SRV": {
+                "dataSource": "MARINE_TRAFFIC_API_SRV",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "VENDOR_SRV": {
+                "dataSource": "VENDOR_SRV",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "CONTROLLER_SRV": {
+                "dataSource": "CONTROLLER_SRV",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "nauticalfe.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "RouteHome",
+                    "pattern": ":?query:",
+                    "target": [
+                        "TargetHome"
+                    ]
+                },
+                {
+                    "name": "RoutecreateVoyage",
+                    "pattern": "createVoyage",
+                    "target": [
+                        "TargetcreateVoyage"
+                    ]
+                },
+                {
+                    "name": "Routedashboard",
+                    "pattern": "dashboard",
+                    "target": [
+                        "Targetdashboard"
+                    ]
+                },
+                {
+                    "name": "RouteMasterDashboard",
+                    "pattern": "MasterDashboard",
+                    "target": [
+                        "TargetMasterDashboard"
+                    ]
+                },
+                {
+                    "name": "RouteMasterVoyageType",
+                    "pattern": "MasteVoyageType",
+                    "target": [
+                        "TargetMasterVoyageType"
+                    ]
+                },
+                {
+                    "name": "RouteMasterVesselType",
+                    "pattern": "MasterVesselType",
+                    "target": [
+                        "TargetMasterVesselType"
+                    ]
+                },
+                {
+                    "name": "RouteMasterCurrencyType",
+                    "pattern": "MasterCurrencyType",
+                    "target": [
+                        "TargetMasterCurrencyType"
+                    ]
+                },
+                {
+                    "name": "RouteMasterClassMaster",
+                    "pattern": "ClassMaster",
+                    "target": [
+                        "TargetClassMaster"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetHome": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "Home",
+                    "viewName": "Home"
+                },
+                "TargetcreateVoyage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "createVoyage",
+                    "viewName": "createVoyage"
+                },
+                "Targetdashboard": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "Dashboard",
+                    "viewName": "Dashboard"
+                },
+                "TargetMasterDashboard":{
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "MasterDashboard",
+                    "viewName": "MasterDashboard"
+                },
+                "TargetMasterVoyageType":{
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "MasterVoyageType",
+                    "viewName": "MasterVoyageType"
+                },
+                "TargetMasterVesselType":{
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "MasterVesselType",
+                    "viewName": "MasterVesselType"
+                },
+                "TargetMasterCurrencyType":{
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "MasterCurrencyType",
+                    "viewName": "MasterCurrencyType"
+                },
+                "TargetClassMaster":{
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "ClassMaster",
+                    "viewName": "ClassMaster"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "nauticalfe.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        }
+    }
+}

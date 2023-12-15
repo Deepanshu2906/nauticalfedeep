@@ -1,0 +1,65 @@
+specVersion: "3.1"
+metadata:
+  name: nauticalfe
+type: application
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertError: false
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+        backend:
+          - path: /sap
+            url: http://35.185.33.183:8001
+            client: "150"
+            destination: internalserver
+          - path: /sap
+            url: http://35.185.33.183:8001
+            client: "150"
+            destination: internalserver
+          - path: /sap/opu/odata/nauti/MARINE_TRAFFIC_API_SRV
+            url: http://35.185.33.183:8001
+            client: "150"
+            destination: internalserver
+          - path: /sap/opu/odata/nauti/VENDOR_SRV
+            url: http://35.185.33.183:8001
+            client: "150"
+            destination: internalserver
+          - path: /sap/opu/odata/nauti/CONTROLLER_SRV
+            url: http://35.185.33.183:8001
+            client: "150"
+            destination: internalserver
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /sap/opu/odata/nauti/NAUTICALCV_SRV
+            metadataPath: ./webapp/localService/metadata.xml
+            mockdataPath: ./webapp/localService/data
+            generateMockData: true
+        annotations: []
+        service:
+          - urlPath: /sap/opu/odata/nauti/MARINE_TRAFFIC_API_SRV
+            metadataXmlPath: ./webapp/localService/MARINE_TRAFFIC_API_SRV/metadata.xml
+            mockdataRootPath: ./webapp/localService/MARINE_TRAFFIC_API_SRV/mockdata
+            generateMockData: true
+          - urlPath: /sap/opu/odata/nauti/VENDOR_SRV
+            metadataXmlPath: ./webapp/localService/VENDOR_SRV/metadata.xml
+            mockdataRootPath: ./webapp/localService/VENDOR_SRV/mockdata
+            generateMockData: true
+          - urlPath: /sap/opu/odata/nauti/CONTROLLER_SRV
+            metadataXmlPath: ./webapp/localService/CONTROLLER_SRV/metadata.xml
+            mockdataRootPath: ./webapp/localService/CONTROLLER_SRV/mockdata
+            generateMockData: true
